@@ -1,8 +1,6 @@
-import { BadRequestException, CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
-import { Observable } from "rxjs";
+import { BadRequestException, CanActivate, ExecutionContext, Injectable, NotFoundException } from "@nestjs/common";
 
 import * as fs from 'fs';
-import { join } from "path";
 
 @Injectable()
 export class FileExistGuard implements CanActivate {

@@ -4,7 +4,7 @@ import { createReadStream } from "fs";
 import { join } from "path";
 import { Response } from "express";
 import { FileExistGuard } from "./guards/fileexist.guard";
-import { NoParamGuard } from "./guards/noparam.guard";
+import { NoQueryGuard } from "./guards/noquery.guard";
 
 @Controller("files")
 export class FilesController {
@@ -29,13 +29,13 @@ export class FilesController {
     }
 
     @Get("download")
-    @UseGuards(NoParamGuard, FileExistGuard)
+    @UseGuards(NoQueryGuard, FileExistGuard)
     downloadFile(@Req() req, @Res() res: Response) {
         const file = req.filenameRequest;
         const filepath = `./static/upload/${file}`;
-        const filename = 'download';
-        
-        res.download(filepath, filename, (err) => {
+        const fileShowName = 'download';
+
+        res.download(filepath, fileShowName, (err) => {
             if(err) {
                 res.status(500).send('File download failed');
             }
