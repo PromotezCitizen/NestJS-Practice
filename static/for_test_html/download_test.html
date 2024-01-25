@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Content Display</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<input type="text" id="fileNameInput" placeholder="Enter File Name">
+<button id="downloadButton">Show File Content</button>
+<div id="fileContent"></div>
+
+<!-- <script>
+    document.getElementById('downloadButton').addEventListener('click', () => {
+        fetch('http://localhost:3000/files/download') // 서버의 파일 다운로드 URL
+            .then(response => response.text()) // 파일 내용을 텍스트로 변환
+            .then(text => {
+                // 텍스트 내용을 웹페이지에 표시
+                console.log(text)
+                document.getElementById('fileContent').textContent = text;
+            })
+            .catch(error => console.error('Error fetching the file:', error));
+    });
+</script> -->
+<script>
+    document.getElementById('downloadButton').addEventListener('click', () => {
+        const filename = fileNameInput.value;
+        axios({
+            url: 'http://localhost:3000/files/download', // 서버의 파일 다운로드 URL
+            method: 'GET',
+            responseType: 'blob', // 응답 타입을 blob으로 설정
+            params: {
+                'file': filename
+            }
+        })
+        .then( res => res.data.text())
+        .then( text => {
+            document.getElementById('fileContent').textContent = text;
+        })
+        .catch((error) => {
+            console.error('Download error:', error)
+            document.getElementById('fileContent').textContent = error;
+        });
+    });
+</script>
+
+</body>
+</html>
