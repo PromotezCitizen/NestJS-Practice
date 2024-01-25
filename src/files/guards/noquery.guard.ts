@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, HttpCode, HttpException, HttpStatus, Inj
 import { Observable } from "rxjs";
 
 @Injectable()
-export class NoParamGuard implements CanActivate {
+export class NoQueryGuard implements CanActivate {
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         const req = context.switchToHttp().getRequest();
         const query = req.query;
