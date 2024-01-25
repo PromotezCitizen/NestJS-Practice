@@ -7,8 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
-
-
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -26,7 +25,8 @@ import { UsersModule } from './users/users.module';
       entities: [User], // 기본 table 생성
       synchronize: true, // 실사용에서는 데이터 손실 가능
     }),
-    UsersModule
+    UsersModule,
+    FilesModule
   ],
   controllers: [AppController],
   providers: [AppService],
