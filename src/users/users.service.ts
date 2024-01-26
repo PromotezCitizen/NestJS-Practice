@@ -27,6 +27,15 @@ export class UsersService {
       },
     });
   }
+  
+  // typeorm을 이용한 authentication(인증) 구현
+  findPasswordWithId(id: string): Promise<User> {
+    return this.userRepository.findOne({
+      where: {
+        id: id
+      },
+    });
+  }
 
   async update(id: number, user: UpdateUserDto) {
     const prevUser = await this.userRepository.findOne({
