@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 import { FilesModule } from './files/files.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { FilesModule } from './files/files.module';
       synchronize: true, // 실사용에서는 데이터 손실 가능
     }),
     UsersModule,
-    FilesModule
+    FilesModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
