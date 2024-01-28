@@ -11,6 +11,7 @@ import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guard/auth.guard';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { AuthGuard } from './auth/guard/auth.guard';
     }),
     UsersModule,
     FilesModule,
-    AuthModule
+    AuthModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [

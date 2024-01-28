@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+</head>
+<body>
+    <div id="output"></div>
+    <button id="connectButton">Connect</button>
+    <button id="sendButton">Send</button>
+    <input type="text" id="messageInput" placeholder="Enter a message">
+
+    <script>
+        const outputDiv = document.getElementById('output');
+        const connectButton = document.getElementById('connectButton');
+        const sendButton = document.getElementById('sendButton');
+        const messageInput = document.getElementById('messageInput');
+        let socket;
+
+        connectButton.addEventListener('click', () => {
+            if (socket) return; // 이미 연결되어있다면 연결하지 않게
+            socket = io('http://localhost:3000'); // Socket.IO 서버 주소를 설정
+            socket.on('connect', () => {
+                outputDiv.innerHTML += '<p>Connected to Socket.IO server</p>';
+            });
+            socket.on('message', (message) => {
+                outputDiv.innerHTML += `<p>Received: ${message}</p>`;
+            });
+            socket.on('disconnect', () => {
+                outputDiv.innerHTML += '<p>Disconnected from Socket.IO server</p>';
+            });
+        });
+
+        sendButton.addEventListener('click', () => {
+            const message = messageInput.value;
+            socket.emit('events', message); // 'message' 이벤트를 서버로 전송
+            outputDiv.innerHTML += `<p>Sent: ${message}</p>`;
+            messageInput.value = '';
+        });
+    </script>
+</body>
+</html>

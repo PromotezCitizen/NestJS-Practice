@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <div id="output"></div>
+    <input type="text" id="messageInput" placeholder="Enter a message">
+    <button id="sendMessage">Send Message</button>
+
+    <script>
+        const outputDiv = document.getElementById('output');
+        const messageInput = document.getElementById('messageInput');
+        const sendMessageButton = document.getElementById('sendMessage');
+
+        // WebSocket 서버에 연결
+        const socket = new WebSocket('ws://localhost:3000'); // 서버 주소를 적절히 변경
+
+        // 연결이 열렸을 때
+        socket.addEventListener('open', (event) => {
+            outputDiv.innerHTML += '<p>Connected to WebSocket server</p>';
+        });
+
+        // 메시지를 받았을 때
+        socket.addEventListener('message', (event) => {
+            const message = event.data;
+            outputDiv.innerHTML += `<p>Received: ${message}</p>`;
+        });
+
+        // 연결이 닫혔을 때
+        socket.addEventListener('close', (event) => {
+            outputDiv.innerHTML += '<p>Connection closed</p>';
+        });
+
+        // Send 버튼 클릭 이벤트 핸들러
+        sendMessageButton.addEventListener('click', () => {
+            const message = messageInput.value;
+            socket.send(message); // 서버로 메시지 전송
+            outputDiv.innerHTML += `<p>Sent: ${message}</p>`;
+            messageInput.value = ''; // 입력 필드 비우기
+        });
+    </script>
+</body>
+</html>
