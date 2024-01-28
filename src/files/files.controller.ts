@@ -1,10 +1,9 @@
-import { Controller, Get, Header, Param, Post, Query, Req, Res, StreamableFile, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Controller, Get, Post, Req, Res, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
-import { createReadStream } from "fs";
-import { join } from "path";
 import { Response } from "express";
 import { FileExistGuard } from "./guards/fileexist.guard";
 import { NoQueryGuard } from "./guards/noquery.guard";
+import { SkipAuth } from "src/common/auth.metadata";
 
 @Controller("files")
 export class FilesController {
@@ -28,6 +27,7 @@ export class FilesController {
         });
     }
 
+    @SkipAuth() // 토큰 인증을 스킵함
     @Get("download")
     @UseGuards(NoQueryGuard, FileExistGuard)
     downloadFile(@Req() req, @Res() res: Response) {

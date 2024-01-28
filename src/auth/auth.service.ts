@@ -27,7 +27,9 @@ export class AuthService {
         return {
             access_token: await this.jwtService.signAsync(payload),
         }
-        // ==============
-        return result;
+    }
+
+    async checkValidate(payload: string): Promise<any> {
+        return this.jwtService.verifyAsync(payload)
     }
 }
