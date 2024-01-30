@@ -23,13 +23,22 @@ export class AuthService {
         const { password, ...result } = user;
 
         // jwt 추가할 부분
-        const payload = { sub: user.uid, id: user.id, nickname: user.nickname, email: user.email };
+        const payload = { 
+            sub: user.uid, 
+            id: user.id, 
+            nickname: user.nickname, 
+            email: user.email 
+        };
         return {
             access_token: await this.jwtService.signAsync(payload),
         }
     }
 
     async checkValidate(payload: string): Promise<any> {
-        return this.jwtService.verifyAsync(payload)
+        return this.jwtService.verifyAsync(payload);
+    }
+
+    async decodeToken(payload: string) {
+        return this.jwtService.decode(payload);
     }
 }
