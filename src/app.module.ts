@@ -12,6 +12,10 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { EventsModule } from './events/events.module';
+import { BoardsModule } from './boards/boards.module';
+import { EssaysModule } from './essays/essays.module';
+import { Board } from './boards/entities/board.entity';
+import { Essay } from './essays/entities/essay.entity';
 
 @Module({
   imports: [
@@ -26,13 +30,19 @@ import { EventsModule } from './events/events.module';
       username:process.env.DB_USER,
       password:process.env.DB_PASS,
       database:process.env.DB_DATABASE,
-      entities: [User], // 기본 table 생성
+      entities: [
+        User,
+        Board,
+        Essay,
+      ], // 기본 table 생성
       synchronize: true, // 실사용에서는 데이터 손실 가능
     }),
     UsersModule,
     FilesModule,
     AuthModule,
-    EventsModule
+    EventsModule,
+    BoardsModule,
+    EssaysModule
   ],
   controllers: [AppController],
   providers: [
