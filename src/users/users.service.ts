@@ -45,6 +45,14 @@ export class UsersService {
     });
   }
 
+  findWithNickname(nickname: string): Promise<User> {
+    return this.userRepository.findOne({
+      where: {
+        nickname: nickname
+      }
+    })
+  }
+
   async update(id: number, user: UpdateUserDto) {
     const prevUser = await this.userRepository.findOne({
       where: {
