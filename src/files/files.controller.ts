@@ -4,7 +4,9 @@ import { Response } from "express";
 import { FileExistGuard } from "./guards/fileexist.guard";
 import { NoQueryGuard } from "./guards/noquery.guard";
 import { SkipAuth } from "src/common/auth.metadata";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('files')
 @Controller("files")
 export class FilesController {
 

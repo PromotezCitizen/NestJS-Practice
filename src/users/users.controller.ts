@@ -5,7 +5,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserReturnInterceptor } from './interceptors/user-return.interceptors';
 import { Response, Request } from 'express';
 import { SkipAuth } from 'src/common/auth.metadata';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
