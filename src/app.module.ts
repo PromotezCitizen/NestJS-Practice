@@ -16,6 +16,8 @@ import { BoardsModule } from './boards/boards.module';
 import { EssaysModule } from './essays/essays.module';
 import { Board } from './boards/entities/board.entity';
 import { Essay } from './essays/entities/essay.entity';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/entities/comment.entity';
 
 @Module({
   imports: [
@@ -34,6 +36,7 @@ import { Essay } from './essays/entities/essay.entity';
         User,
         Board,
         Essay,
+        Comment,
       ], // 기본 table 생성
       synchronize: true, // 실사용에서는 데이터 손실 가능
     }),
@@ -42,7 +45,8 @@ import { Essay } from './essays/entities/essay.entity';
     AuthModule,
     EventsModule,
     BoardsModule,
-    EssaysModule
+    EssaysModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [

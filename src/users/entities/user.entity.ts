@@ -1,4 +1,5 @@
 import { Board } from "src/boards/entities/board.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 import { Essay } from "src/essays/entities/essay.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -23,14 +24,14 @@ export class User {
     createdAt: Date;
 
     @OneToMany(
-        () =>  Board,
-        board => board.owner
-    )
-    boards: Board[];
-
-    @OneToMany(
         () => Essay,
-        essay => essay
+        essay => essay.owner
     )
     essays: Essay[];
+
+    @OneToMany(
+        () => Comment,
+        comment => comment.owner
+    )
+    comments: Comment[]
 }

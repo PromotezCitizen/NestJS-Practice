@@ -1,6 +1,7 @@
 import { Board } from "src/boards/entities/board.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, MongoBatchReExecutionError, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('essay')
 export class Essay {
@@ -32,11 +33,17 @@ export class Essay {
         () => User,
         user => user.essays
     )
-    user: User;
+    owner: User;
 
     @ManyToOne(
         () => Board,
         board => board.essays
     )
     board: Board;
+
+    @OneToMany(
+        () => Comment,
+        comment => comment.essay
+    )
+    comments: Comment[]
 }

@@ -1,6 +1,6 @@
 import { Essay } from "src/essays/entities/essay.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("board")
 export class Board {
@@ -16,11 +16,8 @@ export class Board {
     @CreateDateColumn()
     createdAt: Date;
 
-    @ManyToOne(
-        () => User,
-        user => user.boards
-    )
-    owner: User;
+    @UpdateDateColumn()
+    modifedAt: Date;
 
     @OneToMany(
         () => Essay,

@@ -15,6 +15,9 @@ import { UsersModule } from 'src/users/users.module';
     TypeOrmModule.forFeature([Essay])
   ],
   controllers: [EssaysController],
-  providers: [EssaysService]
+  providers: [EssaysService],
+  exports: [
+    EssaysService,
+  ]
 })
 export class EssaysModule {}

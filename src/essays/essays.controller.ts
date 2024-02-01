@@ -17,7 +17,7 @@ export class EssaysController {
     async createEssay(@Body() body: CreateEssayDto, @Req() req) {
         // const payload = await this.authService.decodeToken(token);
         const payload = req.user;
-        console.log(payload);
+        // console.log(payload);
         return this.essaysService.create(body, payload.nickname);
     }
 

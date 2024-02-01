@@ -16,8 +16,8 @@ export class BoardsController {
     @Post()
     async createBoard(@Body() dto: CreateBoardDto, @Req() req) {
         // const payload = await this.authService.decodeToken(token);
-        const payload = req.user;
-        console.log(payload);
+        const payload = req.user; // 이미 토큰 디코딩 해서 req에 넣어놨음!
+        // console.log(payload);
         return await this.boardsService.craete(dto, payload.nickname);
     }
 

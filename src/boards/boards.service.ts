@@ -18,15 +18,9 @@ export class BoardsService {
     ) {}
 
     async craete(board: CreateBoardDto, nickname: string) {
-        const owner =  await this.usersService.findWithNickname(nickname);
-        if (!owner) {
-            throw new BadRequestException();
-        }
-
         const boardData = new Board();
         boardData.name = board.name;
         boardData.describe = board.describe;
-        boardData.owner = owner;
 
         return this.boardRepository.save(boardData);
     }

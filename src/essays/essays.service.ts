@@ -43,7 +43,7 @@ export class EssaysService {
 
         let essayInfo = new Essay();
         essayInfo.board = boardInfo;
-        essayInfo.user = userInfo;
+        essayInfo.owner = userInfo;
         essayInfo.title = essay.title;
         essayInfo.content = essay.content;
         
