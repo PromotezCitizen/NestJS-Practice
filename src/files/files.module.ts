@@ -5,11 +5,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { FilesController } from './files.controller';
 
 import * as fs from 'fs';
-import { UsersService } from 'src/users/users.service';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
-    controllers: [FilesController],
+    controllers: [
+        FilesController,
+    ],
     imports: [
         MulterModule.registerAsync({
             imports: [ConfigModule],

@@ -6,9 +6,11 @@ import { NoQueryGuard } from "./guards/noquery.guard";
 import { SkipAuth } from "src/common/auth.metadata";
 import { ApiTags } from "@nestjs/swagger";
 
+
 @ApiTags('files')
 @Controller("files")
 export class FilesController {
+    constructor() {};
 
     @Get()
     mainPage(): string {
@@ -43,5 +45,4 @@ export class FilesController {
             }
         })
     }
-
 }

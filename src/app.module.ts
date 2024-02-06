@@ -18,6 +18,7 @@ import { Board } from './boards/entities/board.entity';
 import { Essay } from './essays/entities/essay.entity';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/entities/comment.entity';
+import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { Comment } from './comments/entities/comment.entity';
     BoardsModule,
     EssaysModule,
     CommentsModule,
+    S3Module,
   ],
   controllers: [AppController],
   providers: [
