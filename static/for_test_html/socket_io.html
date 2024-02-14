@@ -26,6 +26,7 @@
             socket = io('http://localhost:3000', {
                 extraHeaders: {
                     Authorization: "Bearer asdf.zxcv.qwer",
+                    roomName: "test",
                 } // extraHeaders로 헤더 전송 가능. 네이티브 WebSocket에서는 불가
             }); // Socket.IO 서버 주소를 설정
             socket.on('connect', () => {

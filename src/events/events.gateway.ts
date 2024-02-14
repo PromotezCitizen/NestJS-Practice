@@ -13,30 +13,45 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
+  private rooms: Map<string, Set<Socket>> = new Map<string, Set<Socket>>();
   private clients: Set<Socket> = new Set();
 
   handleConnection(client: Socket, ...args: any[]) {
     const headers = client.handshake.headers;
+    const roomName = headers.roomName as string
     if (headers.authorization !== "Bearer asdf.zxcv.qwer") {
       client.send("disconnected");
       client.disconnect();
       return;
     }
+    if (!this.rooms.get(roomName)) {
+      this.rooms.set(roomName, new Set<Socket>());
+    }
+    const room = this.rooms.get(roomName);
+    room.add(client);
     client.send("conneted");
-    this.clients.add(client);
   }
 
   handleDisconnect(client: Socket) {
-    this.clients.delete(client);
+    const headers = client.handshake.headers;
+    const roomName = headers.roomName as string
+
+    const room = this.rooms.get(roomName);
+    room.delete(client);
+    if (room.size === 0) {
+      this.rooms.delete(roomName);
+    }
   }
   
   @SubscribeMessage('events')
-  findAll(
+  handleMessage(
     @MessageBody() data: any, 
     // 클라이언트 정보를 확인하기 위해서는 ConnectedSocket 어노테이션 사용
     @ConnectedSocket() sender: Socket
   ): Observable<WsResponse<number>> {
-    this.clients.forEach( (client) => {
+    const headers = sender.handshake.headers;
+    const room = this.rooms.get(headers.roomName as string);
+    room.forEach( (client) => {
       if (client !== sender) {
         client.send(data);
       }

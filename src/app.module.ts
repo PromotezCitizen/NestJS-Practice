@@ -56,7 +56,7 @@ import { S3Module } from './s3/s3.module';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
-    }
+    },
   ],
 })
 export class AppModule implements NestModule {
