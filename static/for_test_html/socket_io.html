@@ -9,19 +9,25 @@
 <body>
     <div id="output"></div>
     <button id="connectButton">Connect</button>
+    <button id="disconnectButton">Disconnect</button>
     <button id="sendButton">Send</button>
     <input type="text" id="messageInput" placeholder="Enter a message">
 
     <script>
         const outputDiv = document.getElementById('output');
         const connectButton = document.getElementById('connectButton');
+        const disconnectButton = document.getElementById('disconnectButton');
         const sendButton = document.getElementById('sendButton');
         const messageInput = document.getElementById('messageInput');
         let socket;
 
         connectButton.addEventListener('click', () => {
             if (socket) return; // 이미 연결되어있다면 연결하지 않게
-            socket = io('http://localhost:3000'); // Socket.IO 서버 주소를 설정
+            socket = io('http://localhost:3000', {
+                extraHeaders: {
+                    Authorization: "Bearer asdf.zxcv.qwer",
+                } // extraHeaders로 헤더 전송 가능. 네이티브 WebSocket에서는 불가
+            }); // Socket.IO 서버 주소를 설정
             socket.on('connect', () => {
                 outputDiv.innerHTML += '<p>Connected to Socket.IO server</p>';
             });
@@ -33,9 +39,16 @@
             });
         });
 
+        disconnectButton.addEventListener('click', () => {
+            if (!socket) return;
+            socket.disconnect();
+            socket = null;
+        })
+
         sendButton.addEventListener('click', () => {
+            if (!socket) return;
             const message = messageInput.value;
-            socket.emit('events', message); // 'message' 이벤트를 서버로 전송
+            socket.emit('events', message); // 메시지를 서버의 'events' 이벤트로 전송
             outputDiv.innerHTML += `<p>Sent: ${message}</p>`;
             messageInput.value = '';
         });
