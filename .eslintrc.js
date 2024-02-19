@@ -1,25 +1,40 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
-  },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
-  root: true,
   env: {
     node: true,
-    jest: true,
+    es2021: true,
   },
-  ignorePatterns: ['.eslintrc.js'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'prettier',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
+    indent: ['error', 2, { SwitchCase: 1 }],
+    'linebreak-style': ['error', 'windows'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+    'no-unused-vars': 'warn',
+    'no-console': 'off',
+    'prefer-const': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': [
+          'warn',
+          { argsIgnorePattern: '^_' },
+        ],
+      },
+    },
+  ],
 };
