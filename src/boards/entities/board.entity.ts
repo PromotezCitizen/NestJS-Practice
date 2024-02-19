@@ -1,27 +1,27 @@
-import { Essay } from "src/essays/entities/essay.entity";
-import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Essay } from 'src/essays/entities/essay.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity("board")
+@Entity('board')
 export class Board {
     @PrimaryGeneratedColumn()
-    uid: number;
+      uid: number;
 
     @Column()
-    name: string;
+      name: string;
 
     @Column()
-    describe: string;
+      describe: string;
 
     @CreateDateColumn()
-    createdAt: Date;
+      createdAt: Date;
 
     @UpdateDateColumn()
-    modifedAt: Date;
+      modifedAt: Date;
 
     @OneToMany(
-        () => Essay,
-        essay => essay.board
+      () => Essay,
+      essay => essay.board
     )
-    essays: Essay[];
+      essays: Essay[];
 }

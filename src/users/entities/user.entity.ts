@@ -1,37 +1,37 @@
-import { Board } from "src/boards/entities/board.entity";
-import { Comment } from "src/comments/entities/comment.entity";
-import { Essay } from "src/essays/entities/essay.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Board } from 'src/boards/entities/board.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
+import { Essay } from 'src/essays/entities/essay.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({name: 'user'}) // 테이블의 기본 이름 설정
 export class User {
     @PrimaryGeneratedColumn()
-    uid: number;
+      uid: number;
 
     @Column()
-    id: string;
+      id: string;
 
     @Column()
-    password: string;
+      password: string;
 
     @Column()
-    email: string;
+      email: string;
 
     @Column({default: 'default'})
-    nickname: string;
+      nickname: string;
 
     @CreateDateColumn()
-    createdAt: Date;
+      createdAt: Date;
 
     @OneToMany(
-        () => Essay,
-        essay => essay.owner
+      () => Essay,
+      essay => essay.owner
     )
-    essays: Essay[];
+      essays: Essay[];
 
     @OneToMany(
-        () => Comment,
-        comment => comment.owner
+      () => Comment,
+      comment => comment.owner
     )
-    comments: Comment[]
+      comments: Comment[];
 }

@@ -8,29 +8,29 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('essays')
 @Controller('essays')
 export class EssaysController {
-    constructor(
+  constructor(
         private readonly essaysService: EssaysService,
         private readonly authService: AuthService
-    ) {};
+  ) {};
 
     @Post()
-    async createEssay(@Body() body: CreateEssayDto, @Req() req) {
-        // const payload = await this.authService.decodeToken(token);
-        const payload = req.user;
-        // console.log(payload);
-        return this.essaysService.create(body, payload.nickname);
-    }
+  async createEssay(@Body() body: CreateEssayDto, @Req() req) {
+    // const payload = await this.authService.decodeToken(token);
+    const payload = req.user;
+    // console.log(payload);
+    return this.essaysService.create(body, payload.nickname);
+  }
 
     @SkipAuth()
     @Get()
     getAllEssays(@Param('page') page: number = 1) {
-        return this.essaysService.findAll(page);
+      return this.essaysService.findAll(page);
     }
 
     @SkipAuth()
     @Get(':id')
     getEssay(@Param('id') id: number) {
-        return this.essaysService.findOne(id);
+      return this.essaysService.findOne(id);
     }
 
     @Patch(':id')

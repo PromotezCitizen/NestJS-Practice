@@ -50,7 +50,7 @@ export class UsersService {
       where: {
         nickname: nickname
       }
-    })
+    });
   }
 
   async update(id: number, user: UpdateUserDto) {
@@ -59,7 +59,7 @@ export class UsersService {
         uid: id
       }
     });
-    let userToUpdate = {...prevUser, ...user};
+    const userToUpdate = {...prevUser, ...user};
     await this.userRepository.save(userToUpdate);
   }
 

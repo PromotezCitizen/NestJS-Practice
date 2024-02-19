@@ -19,7 +19,7 @@ export class CatsController {
   @Get()
   async findAll(): Promise<Cat[]> {
     try {
-      return this.catsService.findAll()
+      return this.catsService.findAll();
     } catch (error) { 
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
@@ -34,7 +34,7 @@ export class CatsController {
   @Get(':id')
   async findOne(@Param('id', new DefaultValuePipe(0), ParseIntPipe) id: number): Promise<Cat> {
     try {
-      return this.catsService.findOne(id)
+      return this.catsService.findOne(id);
     } catch (error) { 
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,

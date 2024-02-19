@@ -11,12 +11,12 @@ const loggerFormatter = winston.format.combine(
   nestWinstonModuleUtilities.format.nestLike('MyApp', {
     prettyPrint: true,
   }),
-)
+);
 
 const loggerSetting = {
   level: loggerLevel,
   format: loggerFormatter,
-}
+};
 
 export const loggerConfig = {
   transports: [
@@ -31,4 +31,4 @@ export const loggerConfig = {
       ...loggerSetting
     }),
   ],
-}
+};

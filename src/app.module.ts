@@ -29,7 +29,7 @@ import { WinstonModule } from 'nest-winston';
       envFilePath:['.development.env']
     }),
     TypeOrmModule.forRoot({
-      type:"mysql",
+      type:'mysql',
       host:process.env.DB_HOST,
       port:parseInt(process.env.DB_PORT),
       username:process.env.DB_USER,
@@ -65,9 +65,9 @@ import { WinstonModule } from 'nest-winston';
   ],
 })
 export class AppModule implements NestModule {
-    configure( consumer: MiddlewareConsumer) { 
-      consumer
+  configure( consumer: MiddlewareConsumer) { 
+    consumer
       .apply(logger)
-      .forRoutes("cats")
-    }
+      .forRoutes('cats');
+  }
 }

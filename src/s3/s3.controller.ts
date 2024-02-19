@@ -7,7 +7,7 @@ import * as AWS from 'aws-sdk';
 @Controller('s3')
 export class S3Controller {
   private readonly s3: AWS.S3;
-  private readonly bucketName: string
+  private readonly bucketName: string;
 
   constructor(private readonly s3Service: S3Service) {
     // AWS.config.update({
@@ -30,24 +30,24 @@ export class S3Controller {
   @SkipAuth()
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(@UploadedFile() file: Express.Multer.File) {
-        const key = `${Date.now().toString()}_${file.originalname}`;
-        console.log(file);
-        if (!file.buffer) {
-            throw new Error('File Content is empty');
-        }
-        try {
-            const s3Object = await this.s3.putObject({
-                Bucket: this.bucketName,
-                Key: key,
-                Body: file.buffer,
-                // ACL: 'public-read',
-                ContentType: file.mimetype,
-            }).promise();
-            return s3Object;
-        } catch (err) {
-            throw new BadRequestException(`File upload failed: ${err}`);
-        }
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    const key = `${Date.now().toString()}_${file.originalname}`;
+    console.log(file);
+    if (!file.buffer) {
+      throw new Error('File Content is empty');
+    }
+    try {
+      const s3Object = await this.s3.putObject({
+        Bucket: this.bucketName,
+        Key: key,
+        Body: file.buffer,
+        // ACL: 'public-read',
+        ContentType: file.mimetype,
+      }).promise();
+      return s3Object;
+    } catch (err) {
+      throw new BadRequestException(`File upload failed: ${err}`);
+    }
   }
 
   @SkipAuth() // 토큰 인증을 스킵함
@@ -60,11 +60,11 @@ export class S3Controller {
     const file = await this.s3.getObject(params).promise();
 
     if (file) {
-        res.setHeader('Content-Type', 'application/octet-stream');
-        res.setHeader('Content-Disposition', `attachment; filename="${fileKey.split("-")[1]}"`);
-        res.send(file.Body);
+      res.setHeader('Content-Type', 'application/octet-stream');
+      res.setHeader('Content-Disposition', `attachment; filename="${fileKey.split('-')[1]}"`);
+      res.send(file.Body);
     } else {
-        res.status(404).send('File Not Found');
+      res.status(404).send('File Not Found');
     }
   }
 }

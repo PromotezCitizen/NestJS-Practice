@@ -1,6 +1,6 @@
-import { CanActivate, ExecutionContext } from "@nestjs/common";
-import { Injectable } from "@nestjs/common/decorators";
-import { Observable } from "rxjs";
+import { CanActivate, ExecutionContext } from '@nestjs/common';
+import { Injectable } from '@nestjs/common/decorators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ExampleGuard implements CanActivate {

@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { EssaysService } from 'src/essays/essays.service';
-import { Comment } from 'src/comments/entities/comment.entity'
+import { Comment } from 'src/comments/entities/comment.entity';
 
 @Injectable()
 export class CommentsService {
@@ -42,7 +42,7 @@ export class CommentsService {
       },
       skip: (page - 1) * this.pageSize,
       take: this.pageSize,
-    })
+    });
     return comments;
   }
 

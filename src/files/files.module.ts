@@ -8,34 +8,34 @@ import * as fs from 'fs';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
-    controllers: [
-        FilesController,
-    ],
-    imports: [
-        MulterModule.registerAsync({
-            imports: [ConfigModule],
-            useFactory: async (config: ConfigService) => ({
-                storage: diskStorage({
-                    destination: (req, file, cb) => {
-                        const dest = './static/upload'
+  controllers: [
+    FilesController,
+  ],
+  imports: [
+    MulterModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        storage: diskStorage({
+          destination: (req, file, cb) => {
+            const dest = './static/upload';
 
-                        if (!fs.existsSync(dest)) {
-                            fs.mkdirSync(dest, {recursive: true})
-                        }
+            if (!fs.existsSync(dest)) {
+              fs.mkdirSync(dest, {recursive: true});
+            }
 
-                        cb(null, dest);
-                    },
-                    filename: (req, file, cb) => {
-                        const randNum = Array(8)
-                                .fill(null)
-                                .map( () => Math.round(Math.random() * 16).toString(16) )
-                                .join('');
-                        cb(null, `${file.originalname}-${randNum}`)
-                    }
-                })
-            })
-        }),
-        UsersModule,
-    ]
+            cb(null, dest);
+          },
+          filename: (req, file, cb) => {
+            const randNum = Array(8)
+              .fill(null)
+              .map( () => Math.round(Math.random() * 16).toString(16) )
+              .join('');
+            cb(null, `${file.originalname}-${randNum}`);
+          }
+        })
+      })
+    }),
+    UsersModule,
+  ]
 })
 export class FilesModule {}

@@ -7,18 +7,18 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
     @SkipAuth()
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    siginIn(@Body() siginInDto: LoginDto) {
-        return this.authService.signIn(siginInDto.id, siginInDto.password);
-    }
+  siginIn(@Body() siginInDto: LoginDto) {
+    return this.authService.signIn(siginInDto.id, siginInDto.password);
+  }
 
     // @UseGuards(AuthGuard)
     @Get('profile')
     getProfile(@Req() req) {
-        return req.user
+      return req.user;
     }
 }

@@ -8,66 +8,66 @@ import { UpdateBoardDto } from './dto/update-board.dto';
 
 @Injectable()
 export class BoardsService {
-    private pageSize: number = 20;
+  private pageSize: number = 20;
 
-    constructor(
+  constructor(
         @InjectRepository(Board)
         private boardRepository: Repository<Board>,
 
         private usersService: UsersService,
-    ) {}
+  ) {}
 
-    async craete(board: CreateBoardDto, nickname: string) {
-        const boardData = new Board();
-        boardData.name = board.name;
-        boardData.describe = board.describe;
+  async craete(board: CreateBoardDto, nickname: string) {
+    const boardData = new Board();
+    boardData.name = board.name;
+    boardData.describe = board.describe;
 
-        return this.boardRepository.save(boardData);
+    return this.boardRepository.save(boardData);
+  }
+
+  async findAll(page: number): Promise<[Board[], number]> {
+    return await this.boardRepository.findAndCount({
+      order: {
+        createdAt: 'DESC',
+      },
+      skip: (page - 1) * this.pageSize,
+      take: this.pageSize
+    });
+  }
+
+  findOneByBoardname(boardname: string): Promise<Board> {
+    return this.boardRepository.findOne({
+      where: {
+        name: boardname
+      }
+    });
+  }
+
+  findOneById(id: number): Promise<Board> {
+    return this.boardRepository.findOne({
+      where: {
+        uid: id
+      }
+    });
+  }
+
+  async update(id: number, board: UpdateBoardDto) {
+    const prevBoard = await this.boardRepository.findOne({
+      where: {
+        uid: id,
+      }
+    });
+    if (!prevBoard) {
+      throw new BadRequestException();
     }
 
-    async findAll(page: number): Promise<[Board[], number]> {
-        return await this.boardRepository.findAndCount({
-            order: {
-                createdAt: 'DESC',
-            },
-            skip: (page - 1) * this.pageSize,
-            take: this.pageSize
-        })
-    }
+    prevBoard.name = board.name;
+    prevBoard.describe = board.name;
 
-    findOneByBoardname(boardname: string): Promise<Board> {
-        return this.boardRepository.findOne({
-            where: {
-                name: boardname
-            }
-        })
-    }
+    await this.boardRepository.save(prevBoard);
+  }
 
-    findOneById(id: number): Promise<Board> {
-        return this.boardRepository.findOne({
-            where: {
-                uid: id
-            }
-        })
-    }
-
-    async update(id: number, board: UpdateBoardDto) {
-        const prevBoard = await this.boardRepository.findOne({
-            where: {
-                uid: id,
-            }
-        })
-        if (!prevBoard) {
-            throw new BadRequestException();
-        }
-
-        prevBoard.name = board.name;
-        prevBoard.describe = board.name;
-
-        await this.boardRepository.save(prevBoard);
-    }
-
-    async remove(id: number) {
-        await this.boardRepository.delete(id);
-    }
+  async remove(id: number) {
+    await this.boardRepository.delete(id);
+  }
 }

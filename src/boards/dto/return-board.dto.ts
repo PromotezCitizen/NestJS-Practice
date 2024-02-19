@@ -1,11 +1,11 @@
 export class ReturnBoardDto {
-    uid: number;
+  uid: number;
 
-    name: string;
+  name: string;
 
-    describe: string;
+  describe: string;
 
-    createdAt: Date;
+  createdAt: Date;
 
-    owner: string; // 단순히 닉네임만 표출
+  owner: string; // 단순히 닉네임만 표출
 }

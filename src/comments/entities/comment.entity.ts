@@ -1,30 +1,30 @@
-import { Essay } from "src/essays/entities/essay.entity";
-import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Essay } from 'src/essays/entities/essay.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('comment')
 export class Comment {
     @PrimaryGeneratedColumn()
-    cid: number;
+      cid: number;
 
-    @Column({default: ""})
-    content: string;
+    @Column({default: ''})
+      content: string;
     
     @CreateDateColumn()
-    createdAt: Date;
+      createdAt: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+      updatedAt: Date;
 
     @ManyToOne(
-        () => Essay,
-        essay => essay.comments
+      () => Essay,
+      essay => essay.comments
     )
-    essay: Essay;
+      essay: Essay;
 
     @ManyToOne(
-        () => User,
-        user => user.comments
+      () => User,
+      user => user.comments
     )
-    owner: User;
+      owner: User;
 }

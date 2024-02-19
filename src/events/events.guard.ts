@@ -11,9 +11,9 @@ export class EventsGuard implements CanActivate {
     const client: Socket = context.switchToWs().getClient();
     const headers: IncomingHttpHeaders = client.handshake.headers;
     console.log(headers);
-    client.send("guard activated");
-    if (!headers.authorization.startsWith("Bearer ")) {
-      client.send("Authorization Error. Please check token");
+    client.send('guard activated');
+    if (!headers.authorization.startsWith('Bearer ')) {
+      client.send('Authorization Error. Please check token');
       client.disconnect();
       return false;
     }

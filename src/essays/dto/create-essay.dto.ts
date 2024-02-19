@@ -1,5 +1,5 @@
 export class CreateEssayDto {
-    title: string;
-    content: string;
-    board: string;
+  title: string;
+  content: string;
+  board: string;
 }

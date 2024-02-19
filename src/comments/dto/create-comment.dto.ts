@@ -1,4 +1,4 @@
 export class CreateCommentDto {
-    essayId: number;
-    content: string;
+  essayId: number;
+  content: string;
 }

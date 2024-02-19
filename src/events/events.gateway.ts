@@ -15,14 +15,14 @@ import { EventsInterceptor } from './events.interceptor';
 export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   // socket.io 이용하기 위한 방법
   @WebSocketServer()
-  server: Server;
+    server: Server;
 
   private rooms: Map<string, Set<Socket>>;
 
   constructor() {
     this.rooms = new Map<string, Set<Socket>>();
   }
-/*
+  /*
   // handleConnection 과 handleDisconnection 은 Guard 이용 불가
   // 두 함수는 각각 "클라이언트가 연결됐을 때", "클리이언트가 연결 해제됐을 때" 호출이 되므로
   // 가드가 동작하지 않는 것이 정상!
@@ -42,7 +42,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
     const room = this.rooms.get(roomName);
     room.add(client);
-    client.send("conneted");
+    client.send('conneted');
   }
 
   handleDisconnect(client: Socket) {
@@ -79,7 +79,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     room.forEach( (client) => {
       if (client !== sender)
         client.send(`${token}:${data}`);
-    })
+    });
   }
 
   private getRoomname(
