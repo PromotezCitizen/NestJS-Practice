@@ -19,6 +19,8 @@ import { Essay } from './essays/entities/essay.entity';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/entities/comment.entity';
 import { S3Module } from './s3/s3.module';
+import { loggerConfig } from './logger/logger.config';
+import { WinstonModule } from 'nest-winston';
 
 @Module({
   imports: [
@@ -49,6 +51,9 @@ import { S3Module } from './s3/s3.module';
     EssaysModule,
     CommentsModule,
     S3Module,
+    WinstonModule.forRoot(
+      loggerConfig
+    ),
   ],
   controllers: [AppController],
   providers: [

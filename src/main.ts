@@ -4,8 +4,16 @@ import * as express from 'express';
 import { join } from 'path';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+import { WinstonModule } from 'nest-winston';
+import { loggerConfig } from './logger/logger.config';
+
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger(
+      loggerConfig
+    ),
+  });
   app.enableCors(); // Axios Error 해결
 
   const config = new DocumentBuilder()
